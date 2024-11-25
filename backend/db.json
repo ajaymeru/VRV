@@ -1,0 +1,36 @@
+{
+  "admins": [
+    {
+      "id": 1732534537682,
+      "username": "admin1",
+      "password": "$2a$10$JYbfY1oWEl5FVMw.IFpo3OSujUMC.dwVzg/MVqhLdBFWnuMzYObNe",
+      "role": "admin"
+    }
+  ],
+  "users": [
+    {
+      "id": 1732534560110,
+      "name": "John Doe",
+      "email": "john.doe@example.com",
+      "phone": "1234567890",
+      "status": "active",
+      "role": "user",
+      "permissions": [
+        "read",
+        "write"
+      ]
+    },
+    {
+      "id": 1732542055173,
+      "name": "John Doe",
+      "email": "johndoe@example.com",
+      "phone": "1234567890",
+      "status": "active",
+      "role": "user",
+      "permissions": [
+        "read",
+        "write"
+      ]
+    }
+  ]
+}
