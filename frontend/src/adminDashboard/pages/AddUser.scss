@@ -1,0 +1,121 @@
+.add-user {
+  position: relative;
+  color: white;
+
+  h1 {
+    font-size: 2rem;
+    margin-bottom: 10px;
+  }
+
+  p {}
+
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-top: 10px;
+
+    input,
+    select {
+      padding: 10px;
+      font-size: 1rem;
+      border: 1px solid #ccc;
+      color: white;
+      border-radius: 5px;
+      background-color: transparent;
+      border: none;
+      outline: none;
+      box-shadow: -1px -1px 10px -5px rgba(255, 255, 255, 0.5), 1px 1px 10px 0px rgba(255, 255, 255, 0.2);
+
+      &:focus {
+        box-shadow: inset -1px -1px 10px -5px rgba(255, 255, 255, 0.5), inset 1px 1px 10px 0px rgba(255, 255, 255, 0.2);
+
+      }
+
+    }
+
+    select {
+      option {
+        background-color: var(--bgcolor1);
+
+        &:hover {
+          background-color: var(--copurple);
+        }
+      }
+    }
+
+    button {
+      padding: 10px 15px;
+      font-size: 1rem;
+      color: #fff;
+      background-color: #3498db;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+
+      &:hover {
+        background-color: #2980b9;
+      }
+    }
+  }
+
+  .permissions-dropdown {
+    position: relative;
+
+    .dropdown-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      cursor: pointer;
+      background: transparent;
+    }
+
+    .dropdown-menu {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      width: 100%;
+      border: 1px solid #ccc;
+      background: var(--bgcolor1);
+      z-index: 10;
+      max-height: 200px;
+      overflow-y: auto;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+
+
+      .checkbox-item {
+        display: flex;
+        align-items: center;
+        padding: 10px;
+
+        &:hover {
+          background-color: var(--copurple);
+        }
+
+        input {
+          margin-right: 10px;
+        }
+      }
+    }
+
+    .arrow {
+      font-size: 1rem;
+      color: #333;
+    }
+  }
+
+  .Toastify__toast {
+    font-size: 1rem;
+    border-radius: 5px;
+    color: white;
+    font-weight: bold;
+  }
+
+  .Toastify__toast--success {
+    background: #27ae60;
+  }
+
+}

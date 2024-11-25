@@ -1,0 +1,30 @@
+.navbar {
+  background-color: var(--bgcolor4);
+  color: white;
+  padding: 15px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  h2 {
+    margin: 0 auto;
+  }
+
+  .logout {
+    background-color: #e74c3c;
+    color: #ecf0f1;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    font-weight: 700;
+    color: white;
+
+    &:hover {
+      background-color: #c0392b;
+      font-weight: 700;
+      color: white;
+    }
+  }
+}

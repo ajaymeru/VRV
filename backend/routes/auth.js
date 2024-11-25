@@ -19,47 +19,63 @@ function writeDB(data) {
 
 // Signup route for admin
 router.post('/signup', async (req, res) => {
-    const { username, password, role } = req.body;
+    const { email, password, role } = req.body;
+
+    if (!email || !password || !role) {
+        return res.status(400).json({ message: 'Email, password, and role are required.' });
+    }
 
     if (role !== 'admin') {
         return res.status(403).json({ message: 'Only admin accounts can be created' });
     }
 
     const db = readDB();
-    const existingAdmin = db.admins.find(admin => admin.username === username);
+    const existingAdmin = db.admins.find(admin => admin.email === email);
     if (existingAdmin) {
-        return res.status(400).json({ message: 'Admin already exists' });
+        return res.status(400).json({ message: 'Admin with this email already exists.' });
     }
 
-    const hashedPassword = await bcrypt.hash(password, 10);
-    db.admins.push({ id: Date.now(), username, password: hashedPassword, role });
-    writeDB(db);
+    try {
+        const hashedPassword = await bcrypt.hash(password, 10);
+        db.admins.push({ id: Date.now(), email, password: hashedPassword, role });
+        writeDB(db);
 
-    res.status(201).json({ message: 'Admin account created successfully' });
+        res.status(201).json({ message: 'Admin account created successfully.' });
+    } catch (error) {
+        res.status(500).json({ message: 'Error creating admin account.', error: error.message });
+    }
 });
 
 // Login route for admin
 router.post('/login', async (req, res) => {
-    const { username, password } = req.body;
+    const { email, password } = req.body;
+
+    if (!email || !password) {
+        return res.status(400).json({ message: 'Email and password are required.' });
+    }
 
     const db = readDB();
-    const admin = db.admins.find(admin => admin.username === username);
+    const admin = db.admins.find(admin => admin.email === email);
     if (!admin) {
         return res.status(404).json({ message: 'Admin not found' });
     }
 
-    const isPasswordValid = await bcrypt.compare(password, admin.password);
-    if (!isPasswordValid) {
-        return res.status(401).json({ message: 'Invalid credentials' });
-    }
+    try {
+        const isPasswordValid = await bcrypt.compare(password, admin.password)
+        if (!isPasswordValid) {
+            return res.status(401).json({ message: 'Invalid password' });
+        }
+        const token = jwt.sign({ email: admin.email, role: admin.role }, secretKey, {expiresIn:'10h'})
+        res.json({message:"Login Sucessfull", token})
 
-    const token = jwt.sign({ id: admin.id, role: admin.role }, secretKey, { expiresIn: '1h' });
-    res.json({ message: 'Login successful', token });
+    } catch (error) {
+        res.status(500).json({ message: 'Error logging in admin.', error: error.message })
+    }
 });
 
 // Add User route for admins
 router.post('/add-user', async (req, res) => {
-    const { name, email, phone, status, role, permissions } = req.body;
+    const { name, email, phone, age, role, permissions } = req.body; // Removed `status` from destructuring
     const token = req.headers['authorization']?.split(' ')[1];
 
     if (!token) {
@@ -88,7 +104,8 @@ router.post('/add-user', async (req, res) => {
             name,
             email,
             phone,
-            status,
+            age,
+            status: "Active", // Default status is set to "active"
             role,
             permissions,
         };
@@ -199,7 +216,7 @@ router.delete('/deleteuser/:id', async (req, res) => {
         const userId = req.params.id;
         const token = req.headers['authorization']?.split(' ')[1];
         const db = readDB();
-        
+
         const decoded = jwt.verify(token, secretKey);
         if (decoded.role !== 'admin') {
             return res.status(403).json({ message: 'Only admins can delete users' });
@@ -212,13 +229,12 @@ router.delete('/deleteuser/:id', async (req, res) => {
 
         db.users.splice(userIndex, 1);
         writeDB(db);
-        
+
         res.status(200).json({ message: 'User deleted successfully' });
     } catch (err) {
         res.status(401).json({ message: 'Invalid token or session expired' });
     }
 });
-
 
 // Get User Statistics route for admins
 router.get('/user-statistics', async (req, res) => {
@@ -246,10 +262,10 @@ router.get('/user-statistics', async (req, res) => {
         const usersRegisteredToday = db.users.filter(user => new Date(user.id).setHours(0, 0, 0, 0) === today).length;
 
         // Count of active users
-        const activeUsers = db.users.filter(user => user.status === 'active').length;
+        const activeUsers = db.users.filter(user => user.status === 'Active').length;
 
         // Count of inactive users
-        const inactiveUsers = db.users.filter(user => user.status === 'inactive').length;
+        const inactiveUsers = db.users.filter(user => user.status === 'Inactive').length;
 
         // Return statistics
         res.status(200).json({

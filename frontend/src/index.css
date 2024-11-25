@@ -1,0 +1,25 @@
+*,
+body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+a{
+  text-decoration: none;
+  
+}
+
+:root{
+  --bgcolor1: #141B2D;
+  --bgcolor2: #1F2A40;
+  --bgcolor3: #3498db;
+  --bgcolor4: #18212F;
+
+  --color1: white;
+
+  --copurple: #6870FA;
+  --cogreen: #34C759;
+  --coblue: #3498db;
+}
+

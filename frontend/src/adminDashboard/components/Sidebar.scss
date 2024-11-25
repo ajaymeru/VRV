@@ -1,0 +1,91 @@
+.sidebar {
+  background-color: var(--bgcolor2);
+  color: white;
+  width: 250px;
+  min-height: 100vh;
+  transition: width 0.3s ease;
+  overflow: hidden;
+
+  &.closed {
+    width: 80px;
+  }
+
+  .top-section {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    justify-content: space-between;
+    min-height: 10vh;
+
+    @media (max-width: 80px) {
+      justify-content: center;
+    }
+
+
+    .logo {
+      max-width: 80px;
+      max-height: 80px;
+    }
+
+    .hamburger {
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+      color: white;
+
+      &:hover {
+        color: var(--copurple);
+      }
+    }
+  }
+
+  .menu {
+    list-style: none;
+    padding: 0;
+
+    li {
+      display: flex;
+      align-items: center;
+      padding: 10px 20px;
+      font-size: 1.1rem;
+      cursor: pointer;
+      transition: background 0.3s ease;
+
+      &:hover {
+        background-color: var(--copurple);
+        border-radius: 0 20px 20px 0;
+      }
+
+      &:active {
+        background-color: var(--copurple);
+        border-radius: 0 20px 20px 0;
+      }
+
+      a {
+        width: 100%;
+        color: white;
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+      }
+
+      svg {
+        margin-right: 10px;
+        font-size: 1.3rem;
+      }
+
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .sidebar {
+    position: fixed;
+    z-index: 10;
+
+    &.closed {
+      width: 80;
+    }
+  }
+}

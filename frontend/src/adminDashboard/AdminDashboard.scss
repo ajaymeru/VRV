@@ -1,0 +1,28 @@
+.admin-dashboard {
+  display: flex;
+  background-color: var(--bgcolor1);
+
+  .content {
+    // flex-grow: 1;
+    width: 100%;
+    // padding: 20px;
+
+    @media (max-width: 768px) {
+      margin-left: 80px;
+    }
+
+    &.sidebar-open {
+      // margin-left: 250px;
+      transition: margin-left 0.3s ease;
+
+      @media (max-width: 768px) {
+        margin-left: 80px;
+      }
+    }
+
+    .main-content {
+      padding: 20px;
+      min-height: calc(100vh - 10vh);
+    }
+  }
+}

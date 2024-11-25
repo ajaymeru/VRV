@@ -1,12 +1,15 @@
 const express = require('express');
 const jsonServer = require('json-server');
 const bodyParser = require('body-parser');
+const cors = require('cors')
+
 
 const authRoutes = require('./routes/auth');
 const { authenticate } = require('./routes/middleware');
 
 const app = express();
 const port = 3000;
+app.use(cors())
 
 // Middlewares
 app.use(bodyParser.json());

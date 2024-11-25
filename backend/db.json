@@ -5,6 +5,12 @@
       "username": "admin1",
       "password": "$2a$10$JYbfY1oWEl5FVMw.IFpo3OSujUMC.dwVzg/MVqhLdBFWnuMzYObNe",
       "role": "admin"
+    },
+    {
+      "id": 1732555118895,
+      "email": "admin@gmail.com",
+      "password": "$2a$10$u0L0NtknQb54i3SqSphcteoqAznWTTbWqFootFTwqM2Rpk.o4fWVi",
+      "role": "admin"
     }
   ],
   "users": [
@@ -22,14 +28,121 @@
     },
     {
       "id": 1732542055173,
-      "name": "John Doe",
-      "email": "johndoe@example.com",
+      "name": "tincy",
+      "email": "tincy@example.com",
+      "phone": "1234567890",
+      "status": "Inactive",
+      "role": "User",
+      "permissions": [
+        "read",
+        "write",
+        "createPost",
+        "deletePost"
+      ]
+    },
+    {
+      "id": 1732557225159,
+      "name": "Ajay",
+      "email": "Ajay@example.com",
       "phone": "1234567890",
       "status": "active",
       "role": "user",
       "permissions": [
         "read",
         "write"
+      ]
+    },
+    {
+      "id": 1732557243191,
+      "name": "vijay",
+      "email": "vijay@example.com",
+      "phone": "1234567890",
+      "status": "active",
+      "role": "user",
+      "permissions": [
+        "read",
+        "write"
+      ]
+    },
+    {
+      "id": 1732557344113,
+      "name": "vinod",
+      "email": "vinod@example.com",
+      "phone": "1234567890",
+      "age": "23",
+      "status": "active",
+      "role": "user",
+      "permissions": [
+        "read",
+        "write"
+      ]
+    },
+    {
+      "id": 1732557850018,
+      "name": "Bob Smith",
+      "email": "bob.smith@example.com",
+      "phone": "8765432109",
+      "age": "34",
+      "status": "active",
+      "role": "moderator",
+      "permissions": [
+        "read",
+        "editPost"
+      ]
+    },
+    {
+      "id": 1732557857863,
+      "name": "Charlie Brown",
+      "email": "charlie.brown@example.com",
+      "phone": "7654321098",
+      "age": "40",
+      "status": "active",
+      "role": "admin",
+      "permissions": [
+        "createPost",
+        "deletePost",
+        "editPost"
+      ]
+    },
+    {
+      "id": 1732557865444,
+      "name": "Diana Prince",
+      "email": "diana.prince@example.com",
+      "phone": "6543210987",
+      "age": "25",
+      "status": "active",
+      "role": "user",
+      "permissions": [
+        "read",
+        "createPost"
+      ]
+    },
+    {
+      "id": 1732559023271,
+      "name": "ravi",
+      "email": "ravi@gmail.com",
+      "phone": "9182173097",
+      "age": "23",
+      "status": "Inactive",
+      "role": "user",
+      "permissions": [
+        "createPost",
+        "deletePost",
+        "editPost"
+      ]
+    },
+    {
+      "id": 1732559604562,
+      "name": "sai",
+      "email": "sai@gmail.com",
+      "phone": "9182912981",
+      "age": "56",
+      "status": "Active",
+      "role": "admin",
+      "permissions": [
+        "createPost",
+        "deletePost",
+        "editPost"
       ]
     }
   ]
