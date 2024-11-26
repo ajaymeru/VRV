@@ -26,6 +26,17 @@ This project includes a backend API hosted on [Render](https://vrv-vzqr.onrender
 - **Backend:** [Deployed on Render](https://vrv-vzqr.onrender.com)
 - **Frontend:** [Deployed on Vercel](https://vrv-ajay.vercel.app/login)
 
+### **Test Login Credentials**
+For testing purposes, you can use the following login details:
+
+**Request Body:**
+```json
+{
+  "email": "admin@gmail.com",
+  "password": "admin123"
+}
+```
+
 ### How to Clone and Run the Project Locally
 
 1. Clone the repository:

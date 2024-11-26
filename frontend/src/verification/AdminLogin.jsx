@@ -21,19 +21,15 @@ const AdminLogin = () => {
         { email, password }
       );
 
-      // Notify success
       toast.success(response.data.message, { position: "top-right" });
 
-      // Show confetti
       setIsConfettiVisible(true);
 
-      // Store the token in localStorage
       localStorage.setItem("token", response.data.token);
 
-      // Navigate after a short delay
       setTimeout(() => {
-        setIsConfettiVisible(false); // Stop confetti
-        navigate("/dashboard"); // Adjust to your desired route
+        setIsConfettiVisible(false);
+        navigate("/dashboard");
       }, 2000);
     } catch (err) {
       const errorMessage =
@@ -75,6 +71,22 @@ const AdminLogin = () => {
         <button type="submit" className="submit-btn">
           Login
         </button>
+        <p style={{ color: "white" }}>
+          For login credentials, refer to the &nbsp;
+          <a
+            style={{
+              color: "#4CCEAC",
+              textDecoration: "underline" ,
+              fontWeight:"600"
+            }}
+            href="https://github.com/ajaymeru/VRV"
+            onMouseOver={(e) => e.target.style.color = "white"}
+            onMouseOut={(e) => e.target.style.color = "#4CCEAC"}
+          >
+            Readme.md
+          </a>.
+        </p>
+
       </form>
     </div>
   );
