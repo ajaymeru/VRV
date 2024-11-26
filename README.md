@@ -30,12 +30,13 @@ This project includes a backend API hosted on [Render](https://vrv-vzqr.onrender
 For testing purposes, you can use the following login details:
 
 **Request Body:**
-```json
-{
-  "email": "admin@gmail.com",
-  "password": "admin123"
-}
-```
+Test Login Credentials
+Use the following credentials to test the login functionality:
+
+<div style="background-color: purple; color: white; padding: 10px; border: 1px solid #b3e0ff; border-radius: 8px; font-family: 'Courier New', monospace;"> <b>Credentials:</b> <pre> { 
+    "email": "admin@gmail.com", 
+    "password": "admin123" 
+} </pre> </div>
 
 ### How to Clone and Run the Project Locally
 
