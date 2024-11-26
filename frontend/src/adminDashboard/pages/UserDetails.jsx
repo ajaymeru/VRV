@@ -8,22 +8,30 @@ const UserDetails = () => {
   const navigate = useNavigate();
   const [user, setUser] = useState(null);
   const [error, setError] = useState("");
-  const [isEditing, setIsEditing] = useState(false); 
+  const [isEditing, setIsEditing] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     phone: "",
     status: "",
     role: "",
-    permissions: [], 
+    permissions: [],
   });
-  const [showDropdown, setShowDropdown] = useState(false); 
+  const [showDropdown, setShowDropdown] = useState(false);
 
   const allPermissions = [
     { id: "createPost", label: "Create Post" },
-    { id: "deletePost", label: "Delete Post" },
     { id: "editPost", label: "Edit Post" },
+    { id: "deletePost", label: "Delete Post" },
+    { id: "viewReports", label: "View Reports" },
+    { id: "manageUsers", label: "Manage Users" },
+    { id: "assignTasks", label: "Assign Tasks" },
+    { id: "approveRequests", label: "Approve Requests" },
+    { id: "accessRestrictedAreas", label: "Access Restricted Areas" },
+    { id: "handleIncidents", label: "Handle Incidents" },
+    { id: "manageFinances", label: "Manage Finances" },
   ];
+
   useEffect(() => {
     const fetchUserDetails = async () => {
       try {
@@ -33,7 +41,6 @@ const UserDetails = () => {
           },
         });
         setUser(response.data.user);
-        // log
         console.log(response.data.user);
         setFormData({
           name: response.data.user.name,
@@ -41,7 +48,7 @@ const UserDetails = () => {
           phone: response.data.user.phone || "",
           status: response.data.user.status,
           role: response.data.user.role,
-          permissions: response.data.user.permissions || [], 
+          permissions: response.data.user.permissions || [],
         });
       } catch (err) {
         setError(err.response?.data?.msg || "Error fetching user details");
@@ -80,7 +87,7 @@ const UserDetails = () => {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
       });
-      navigate("/users"); 
+      navigate("/users");
     } catch (err) {
       setError("Failed to delete user");
     }
@@ -97,7 +104,7 @@ const UserDetails = () => {
           },
         }
       );
-      setIsEditing(false); 
+      setIsEditing(false);
     } catch (err) {
       setError("Failed to update user");
     }
@@ -163,8 +170,16 @@ const UserDetails = () => {
               onChange={handleInputChange}
               disabled={!isEditing}
             >
-              <option value="Admin">Admin</option>
-              <option value="User">User</option>
+              <option value="admin">Admin</option>
+              <option value="manager">Manager</option>
+              <option value="moderator">Moderator</option>
+              <option value="teamLead">Team Lead</option>
+              <option value="securityGuard">Security Guard</option>
+              <option value="fieldSupervisor">Field Supervisor</option>
+              <option value="client">Client</option>
+              <option value="itSpecialist">IT Specialist</option>
+              <option value="hrManager">HR Manager</option>
+              <option value="dispatcher">Dispatcher</option>
             </select>
           </label>
 
@@ -175,7 +190,11 @@ const UserDetails = () => {
                 className="permissions-dropdown-toggle"
                 onClick={() => setShowDropdown((prev) => !prev)}
               >
-                Select Permissions
+                {formData.permissions.length > 0
+                  ? formData.permissions
+                    .map((perm) => allPermissions.find((p) => p.id === perm)?.label || perm)
+                    .join(", ")
+                  : "Select Permissions"}
               </button>
               {showDropdown && (
                 <div className="permissions-dropdown-menu">
@@ -198,17 +217,18 @@ const UserDetails = () => {
             </div>
           </label>
 
-          <div>
-            <button onClick={handleEditToggle} disabled={isEditing}>
+
+          <div className="btns">
+            <button className="btn" onClick={handleEditToggle} disabled={isEditing}>
               Edit
             </button>
             {isEditing && (
-              <button onClick={handleSaveChanges}>Save Changes</button>
+              <button className="btn" onClick={handleSaveChanges}>Save Changes</button>
             )}
-            <button onClick={handleDelete}>Delete</button>
+            <button className="btn" onClick={handleDelete}>Delete</button>
           </div>
 
-          <button onClick={() => navigate(-1)}>Go Back</button>
+          <button className="btn" onClick={() => navigate(-1)}>Go Back</button>
         </div>
       ) : (
         <p>Loading user details...</p>

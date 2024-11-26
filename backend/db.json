@@ -32,12 +32,15 @@
       "email": "tincy@example.com",
       "phone": "1234567890",
       "status": "Inactive",
-      "role": "User",
+      "role": "hrManager",
       "permissions": [
         "read",
         "write",
-        "createPost",
-        "deletePost"
+        "deletePost",
+        "manageUsers",
+        "assignTasks",
+        "editPost",
+        "createPost"
       ]
     },
     {
@@ -45,11 +48,12 @@
       "name": "Ajay",
       "email": "Ajay@example.com",
       "phone": "1234567890",
-      "status": "active",
-      "role": "user",
+      "status": "Inactive",
+      "role": "Admin",
       "permissions": [
-        "read",
-        "write"
+        "createPost",
+        "editPost",
+        "deletePost"
       ]
     },
     {
@@ -57,7 +61,7 @@
       "name": "vijay",
       "email": "vijay@example.com",
       "phone": "1234567890",
-      "status": "active",
+      "status": "Inactive",
       "role": "user",
       "permissions": [
         "read",
@@ -99,22 +103,9 @@
       "status": "active",
       "role": "admin",
       "permissions": [
+        "editPost",
         "createPost",
-        "deletePost",
-        "editPost"
-      ]
-    },
-    {
-      "id": 1732557865444,
-      "name": "Diana Prince",
-      "email": "diana.prince@example.com",
-      "phone": "6543210987",
-      "age": "25",
-      "status": "active",
-      "role": "user",
-      "permissions": [
-        "read",
-        "createPost"
+        "deletePost"
       ]
     },
     {
@@ -137,12 +128,269 @@
       "email": "sai@gmail.com",
       "phone": "9182912981",
       "age": "56",
-      "status": "Active",
+      "status": "Inactive",
       "role": "admin",
       "permissions": [
         "createPost",
         "deletePost",
         "editPost"
+      ]
+    },
+    {
+      "id": 1732613796326,
+      "name": "Ravi Kumar",
+      "email": "ravi.kumar@example.com",
+      "phone": "+91 98765 43210",
+      "age": 30,
+      "status": "Active",
+      "role": "Admin",
+      "permissions": [
+        "createPost",
+        "viewReports"
+      ]
+    },
+    {
+      "id": 1732613823437,
+      "name": "Sreeja Reddy",
+      "email": "sreeja.reddy@example.com",
+      "phone": "+91 98432 11112",
+      "age": 28,
+      "status": "Active",
+      "role": "Manager",
+      "permissions": [
+        "manageUsers",
+        "assignTasks"
+      ]
+    },
+    {
+      "id": 1732613838621,
+      "name": "Arjun Raj",
+      "email": "arjun.raj@example.com",
+      "phone": "+91 98877 55678",
+      "age": 35,
+      "status": "Active",
+      "role": "Moderator",
+      "permissions": [
+        "editPost",
+        "deletePost"
+      ]
+    },
+    {
+      "id": 1732613867151,
+      "name": "Priya Sharma",
+      "email": "priya.sharma@example.com",
+      "phone": "+91 90001 22345",
+      "age": 25,
+      "status": "Active",
+      "role": "User",
+      "permissions": [
+        "viewReports"
+      ]
+    },
+    {
+      "id": 1732613878730,
+      "name": "Harish Babu",
+      "email": "harish.babu@example.com",
+      "phone": "+91 99444 87654",
+      "age": 33,
+      "status": "Active",
+      "role": "Security Guard",
+      "permissions": [
+        "handleIncidents"
+      ]
+    },
+    {
+      "id": 1732613893205,
+      "name": "Lakshmi Menon",
+      "email": "lakshmi.menon@example.com",
+      "phone": "+91 99450 12345",
+      "age": 30,
+      "status": "Active",
+      "role": "HR Manager",
+      "permissions": [
+        "manageUsers",
+        "approveRequests"
+      ]
+    },
+    {
+      "id": 1732613912839,
+      "name": "Sumanth Kumar",
+      "email": "sumanth.kumar@example.com",
+      "phone": "+91 98760 43215",
+      "age": 27,
+      "status": "Active",
+      "role": "Team Lead",
+      "permissions": [
+        "assignTasks",
+        "approveRequests"
+      ]
+    },
+    {
+      "id": 1732613922861,
+      "name": "Anjali Reddy",
+      "email": "anjali.reddy@example.com",
+      "phone": "+91 94456 78910",
+      "age": 26,
+      "status": "Active",
+      "role": "Field Supervisor",
+      "permissions": [
+        "handleIncidents",
+        "assignTasks"
+      ]
+    },
+    {
+      "id": 1732613932021,
+      "name": "Vijay Kannan",
+      "email": "vijay.kannan@example.com",
+      "phone": "+91 96385 24680",
+      "age": 31,
+      "status": "Active",
+      "role": "IT Specialist",
+      "permissions": [
+        "manageFinances",
+        "viewReports"
+      ]
+    },
+    {
+      "id": 1732613946286,
+      "name": "Deepa Nair",
+      "email": "deepa.nair@example.com",
+      "phone": "+91 90909 87654",
+      "age": 29,
+      "status": "Active",
+      "role": "Client",
+      "permissions": [
+        "viewReports"
+      ]
+    },
+    {
+      "id": 1732613957694,
+      "name": "Ramesh Naidu",
+      "email": "ramesh.naidu@example.com",
+      "phone": "+91 91827 64359",
+      "age": 40,
+      "status": "Active",
+      "role": "Admin",
+      "permissions": [
+        "createPost",
+        "manageUsers",
+        "viewReports"
+      ]
+    },
+    {
+      "id": 1732613968946,
+      "name": "Karthik Rajan",
+      "email": "karthik.rajan@example.com",
+      "phone": "+91 94567 12345",
+      "age": 32,
+      "status": "Active",
+      "role": "Manager",
+      "permissions": [
+        "manageUsers",
+        "assignTasks",
+        "approveRequests"
+      ]
+    },
+    {
+      "id": 1732613984480,
+      "name": "Subhashini Devi",
+      "email": "subhashini.devi@example.com",
+      "phone": "+91 93949 75627",
+      "age": 38,
+      "status": "Active",
+      "role": "HR Manager",
+      "permissions": [
+        "manageUsers",
+        "approveRequests"
+      ]
+    },
+    {
+      "id": 1732613993900,
+      "name": "Kiran Kumar",
+      "email": "kiran.kumar@example.com",
+      "phone": "+91 91234 56478",
+      "age": 34,
+      "status": "Active",
+      "role": "Security Guard",
+      "permissions": [
+        "handleIncidents"
+      ]
+    },
+    {
+      "id": 1732614003522,
+      "name": "Sree Lakshmi",
+      "email": "sree.lakshmi@example.com",
+      "phone": "+91 98750 56789",
+      "age": 29,
+      "status": "Active",
+      "role": "Team Lead",
+      "permissions": [
+        "assignTasks",
+        "approveRequests"
+      ]
+    },
+    {
+      "id": 1732614014131,
+      "name": "Venkatesh Reddy",
+      "email": "venkatesh.reddy@example.com",
+      "phone": "+91 91567 23456",
+      "age": 36,
+      "status": "Active",
+      "role": "Field Supervisor",
+      "permissions": [
+        "assignTasks",
+        "handleIncidents"
+      ]
+    },
+    {
+      "id": 1732614024285,
+      "name": "Aravind Prabhu",
+      "email": "aravind.prabhu@example.com",
+      "phone": "+91 92234 56789",
+      "age": 31,
+      "status": "Active",
+      "role": "Dispatcher",
+      "permissions": [
+        "assignTasks",
+        "handleIncidents"
+      ]
+    },
+    {
+      "id": 1732614034628,
+      "name": "Meera Subramanian",
+      "email": "meera.subramanian@example.com",
+      "phone": "+91 90012 34567",
+      "age": 27,
+      "status": "Active",
+      "role": "Client",
+      "permissions": [
+        "viewReports"
+      ]
+    },
+    {
+      "id": 1732614044034,
+      "name": "Natarajan Pillai",
+      "email": "natarajan.pillai@example.com",
+      "phone": "+91 93025 67890",
+      "age": 33,
+      "status": "Active",
+      "role": "IT Specialist",
+      "permissions": [
+        "manageFinances",
+        "viewReports"
+      ]
+    },
+    {
+      "id": 1732614058306,
+      "name": "Arvind Kumar",
+      "email": "arvind.kumar@example.com",
+      "phone": "+91 93921 87654",
+      "age": 30,
+      "status": "Active",
+      "role": "Moderator",
+      "permissions": [
+        "editPost",
+        "deletePost"
       ]
     }
   ]

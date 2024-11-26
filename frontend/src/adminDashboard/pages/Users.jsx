@@ -6,6 +6,8 @@ import "react-toastify/dist/ReactToastify.css";
 import "reactjs-popup/dist/index.css";
 import "./Users.scss";
 import { Link } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
 
 const Users = () => {
   const [users, setUsers] = useState([]);
@@ -13,8 +15,8 @@ const Users = () => {
   const [error, setError] = useState("");
   const [searchQuery, setSearchQuery] = useState("");
   const [deleteUserId, setDeleteUserId] = useState(null);
-  const [currentPage, setCurrentPage] = useState(1);  
-  const [usersPerPage] = useState(10); 
+  const [currentPage, setCurrentPage] = useState(1);
+  const [usersPerPage] = useState(10);
 
   useEffect(() => {
     const fetchUsers = async () => {
@@ -47,7 +49,7 @@ const Users = () => {
         user.status.toLowerCase().includes(query)
     );
     setFilteredUsers(filtered);
-    setCurrentPage(1); 
+    setCurrentPage(1);
   };
 
   const confirmDelete = (userId) => {
@@ -94,43 +96,50 @@ const Users = () => {
       />
       {error && <p style={{ color: "red" }}>{error}</p>}
       {filteredUsers.length > 0 ? (
-        <table>
-          <thead>
-            <tr>
-              <th>SNO</th>
-              <th>Name</th>
-              <th>Email</th>
-              <th>Phone</th>
-              <th>Status</th>
-              <th>Role</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {currentUsers.map((user, index) => (
-              <tr key={user.id}>
-                <td>{index + 1 + (currentPage - 1) * usersPerPage}</td>
-                <td className="namelink">
-                  <Link to={`/users/${user.id}`} className="user-link">
-                    {user.name}
-                  </Link>
-                </td>
-                <td>{user.email}</td>
-                <td>{user.phone || "N/A"}</td>
-                <td>{user.status}</td>
-                <td>{user.role}</td>
-                <td className="icon-delete">
-                  <button
-                    onClick={() => confirmDelete(user.id)}
-                    className="action-btn delete"
-                  >
-                    ✖
-                  </button>
-                </td>
+        <div className="userdata">
+          <table>
+            <thead>
+              <tr>
+                <th>SNO</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Status</th>
+                <th>Role</th>
+                <th>Actions</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {currentUsers.map((user, index) => (
+                <tr key={user.id}>
+                  <td>{index + 1 + (currentPage - 1) * usersPerPage}</td>
+                  <td className="namelink">
+                    <Link to={`/users/${user.id}`} className="user-link">
+                      {user.name}
+                    </Link>
+                  </td>
+                  <td>{user.email}</td>
+                  <td>{user.phone || "N/A"}</td>
+                  <td>{user.status}</td>
+                  <td>{user.role}</td>
+                  <td className="icon-delete">
+                    <button
+                      onClick={() => confirmDelete(user.id)}
+                      className="action-btn delete"
+                    >
+                      <FontAwesomeIcon
+                        icon={faTrashCan}
+                        fade
+                        style={{ color: "#ce0909" }}
+                      />
+
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       ) : (
         <p>No users found</p>
       )}

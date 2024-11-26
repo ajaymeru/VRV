@@ -6,7 +6,6 @@ function authenticate(req, res, next) {
     if (!token) {
         return res.status(401).json({ message: 'Access token is required' });
     }
-    // decoding
     try {
         const decoded = jwt.verify(token, secretKey);
         req.user = decoded;

@@ -8,7 +8,6 @@ const router = express.Router();
 const dbFile = path.join(__dirname, '../db.json');
 const secretKey = 'your_secret_key';
 
-// Helper functions to read/write JSON
 function readDB() {
     return JSON.parse(fs.readFileSync(dbFile, 'utf-8'));
 }
@@ -75,7 +74,7 @@ router.post('/login', async (req, res) => {
 
 // Add User route for admins
 router.post('/add-user', async (req, res) => {
-    const { name, email, phone, age, role, permissions } = req.body; // Removed `status` from destructuring
+    const { name, email, phone, age, role, permissions } = req.body; 
     const token = req.headers['authorization']?.split(' ')[1];
 
     if (!token) {
@@ -85,32 +84,30 @@ router.post('/add-user', async (req, res) => {
     try {
         const decoded = jwt.verify(token, secretKey);
 
-        // Ensure the requester is an admin
+       
         if (decoded.role !== 'admin') {
             return res.status(403).json({ message: 'Only admins can add users' });
         }
 
         const db = readDB();
 
-        // Check if email already exists
         const existingUser = db.users.find(user => user.email === email);
         if (existingUser) {
             return res.status(400).json({ message: 'User with this email already exists' });
         }
 
-        // Add the new user to the database
         const newUser = {
             id: Date.now(),
             name,
             email,
             phone,
             age,
-            status: "Active", // Default status is set to "active"
+            status: "Active", 
             role,
             permissions,
         };
 
-        db.users.push(newUser); // Add to the `users` array
+        db.users.push(newUser);
         writeDB(db);
 
         res.status(201).json({ message: 'User added successfully', user: newUser });
@@ -130,14 +127,13 @@ router.get('/users', async (req, res) => {
     try {
         const decoded = jwt.verify(token, secretKey);
 
-        // Ensure the requester is an admin
+       
         if (decoded.role !== 'admin') {
             return res.status(403).json({ message: 'Only admins can view users' });
         }
 
         const db = readDB();
 
-        // Return all users
         res.status(200).json({ users: db.users });
     } catch (err) {
         res.status(401).json({ message: 'Invalid token or session expired' });
@@ -155,7 +151,7 @@ router.get('/users/:id', async (req, res) => {
     }
     try {
         const decoded = jwt.verify(token, secretKey);
-        // Ensure the requester is an admin
+       
         if (decoded.role !== 'admin') {
             return res.status(403).json({ message: 'Only admins can view users' });
         }
@@ -184,13 +180,13 @@ router.put('/edituser/:id', async (req, res) => {
 
         const db = readDB();
 
-        // Find the user in the database
+       
         const userIndex = db.users.findIndex(user => user.id === parseInt(userId));
         if (userIndex === -1) {
             return res.status(404).json({ message: 'User not found' });
         }
 
-        // Update the user's information
+   
         const updatedUser = {
             ...db.users[userIndex],
             name: name || db.users[userIndex].name,
@@ -247,27 +243,22 @@ router.get('/user-statistics', async (req, res) => {
     try {
         const decoded = jwt.verify(token, secretKey);
 
-        // Ensure the requester is an admin
+       
         if (decoded.role !== 'admin') {
             return res.status(403).json({ message: 'Only admins can view user statistics' });
         }
 
         const db = readDB();
 
-        // Total number of users
         const totalUsers = db.users.length;
 
-        // Users registered today
-        const today = new Date().setHours(0, 0, 0, 0); // Start of today
+        const today = new Date().setHours(0, 0, 0, 0); 
         const usersRegisteredToday = db.users.filter(user => new Date(user.id).setHours(0, 0, 0, 0) === today).length;
 
-        // Count of active users
         const activeUsers = db.users.filter(user => user.status === 'Active').length;
 
-        // Count of inactive users
         const inactiveUsers = db.users.filter(user => user.status === 'Inactive').length;
 
-        // Return statistics
         res.status(200).json({
             totalUsers,
             usersRegisteredToday,

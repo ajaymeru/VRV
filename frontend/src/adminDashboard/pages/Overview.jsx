@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { PieChart, Pie, Cell, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import './Overview.scss';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faUsers, faUserPlus, faUserCheck, faUserXmark } from "@fortawesome/free-solid-svg-icons";
 
 const COLORS = ['#4CAF50', '#2196F3', '#FF9800', '#F44336'];
 
@@ -11,15 +13,14 @@ const Overview = () => {
   const [activeUsers, setActiveUsers] = useState(0);
   const [inactiveUsers, setInactiveUsers] = useState(0);
 
-  // Function to animate numbers
   const animateNumber = (start, end, setter) => {
     let current = start;
-    const increment = Math.ceil((end - start) / 100); // Controls the speed of animation
+    const increment = Math.ceil((end - start) / 100);
     const interval = setInterval(() => {
       current += increment;
       if ((increment > 0 && current >= end) || (increment < 0 && current <= end)) {
         clearInterval(interval);
-        setter(end); // Set the final value
+        setter(end);
         return;
       }
       setter(current);
@@ -32,12 +33,10 @@ const Overview = () => {
         const token = localStorage.getItem('token');
         const headers = { Authorization: `Bearer ${token}` };
 
-        // Fetch statistics from backend
         const response = await axios.get(`${import.meta.env.VITE_BASICURL}/auth/user-statistics`, { headers });
 
         const { totalUsers, usersRegisteredToday, activeUsers, inactiveUsers } = response.data;
 
-        // Animate each number individually
         animateNumber(0, totalUsers, setTotalUsers);
         animateNumber(0, usersRegisteredToday, setUsersToday);
         animateNumber(0, activeUsers, setActiveUsers);
@@ -50,7 +49,6 @@ const Overview = () => {
     fetchData();
   }, []);
 
-  // Data for the pie chart
   const chartData = [
     { name: 'Total Users', value: totalUsers },
     { name: 'Users Today', value: usersToday },
@@ -60,27 +58,37 @@ const Overview = () => {
 
   return (
     <div className="overview-container">
-      {/* User statistics in number boxes */}
       <div className="overview">
         <div className="box">
           <h3>Total Users</h3>
-          <p className="number">{totalUsers}</p>
+          <div className="iconnum" style={{ color: "#4CAF50", }}>
+            <FontAwesomeIcon icon={faUsers} fade />
+            <p className="number">{totalUsers}</p>
+          </div>
         </div>
         <div className="box">
           <h3>New Users Today</h3>
-          <p className="number">{usersToday}</p>
+          <div className="iconnum" style={{ color: "#2196F3", }}>
+            <FontAwesomeIcon icon={faUserPlus} fade />
+            <p className="number">{usersToday}</p>
+          </div>
         </div>
         <div className="box">
           <h3>Active Users</h3>
-          <p className="number">{activeUsers}</p>
+          <div className="iconnum" style={{ color: "#FF9800", }}>
+            <FontAwesomeIcon icon={faUserCheck} fade />
+            <p className="number">{activeUsers}</p>
+          </div>
         </div>
         <div className="box">
           <h3>Inactive Users</h3>
-          <p className="number">{inactiveUsers}</p>
+          <div className="iconnum" style={{ color: "#F44336", }}>
+            <FontAwesomeIcon icon={faUserXmark} fade />
+            <p className="number">{inactiveUsers}</p>
+          </div>
         </div>
       </div>
 
-      {/* Responsive Pie Chart */}
       <div className="chart-container">
         <h3>User Statistics</h3>
         <ResponsiveContainer width="100%" height={400}>

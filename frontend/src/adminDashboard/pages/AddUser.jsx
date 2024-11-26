@@ -17,9 +17,17 @@ const AddUser = () => {
 
   const allPermissions = [
     { id: "createPost", label: "Create Post" },
-    { id: "deletePost", label: "Delete Post" },
     { id: "editPost", label: "Edit Post" },
+    { id: "deletePost", label: "Delete Post" },
+    { id: "viewReports", label: "View Reports" },
+    { id: "manageUsers", label: "Manage Users" },
+    { id: "assignTasks", label: "Assign Tasks" },
+    { id: "approveRequests", label: "Approve Requests" },
+    { id: "accessRestrictedAreas", label: "Access Restricted Areas" },
+    { id: "handleIncidents", label: "Handle Incidents" },
+    { id: "manageFinances", label: "Manage Finances" },
   ];
+
 
   const togglePermission = (id) => {
     setFormData((prev) => ({
@@ -46,7 +54,7 @@ const AddUser = () => {
         formData,
         {
           headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`, // Include token for authentication
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
         }
       );
@@ -56,7 +64,6 @@ const AddUser = () => {
         autoClose: 3000,
       });
 
-      // Reset the form fields
       setFormData({
         name: "",
         email: "",
@@ -121,8 +128,15 @@ const AddUser = () => {
             Select Role
           </option>
           <option value="admin">Admin</option>
+          <option value="manager">Manager</option>
           <option value="moderator">Moderator</option>
-          <option value="user">User</option>
+          <option value="teamLead">Team Lead</option>
+          <option value="securityGuard">Security Guard</option>
+          <option value="fieldSupervisor">Field Supervisor</option>
+          <option value="client">Client</option>
+          <option value="itSpecialist">IT Specialist</option>
+          <option value="hrManager">HR Manager</option>
+          <option value="dispatcher">Dispatcher</option>
         </select>
 
         <div className="permissions-dropdown">
@@ -134,10 +148,10 @@ const AddUser = () => {
             <span>
               {formData.permissions.length > 0
                 ? formData.permissions
-                    .map((permId) =>
-                      allPermissions.find((perm) => perm.id === permId)?.label
-                    )
-                    .join(", ")
+                  .map((permId) =>
+                    allPermissions.find((perm) => perm.id === permId)?.label
+                  )
+                  .join(", ")
                 : "Select Permissions"}
             </span>
             <span className="arrow">{showDropdown ? "▲" : "▼"}</span>

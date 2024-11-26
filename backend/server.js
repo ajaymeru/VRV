@@ -11,11 +11,9 @@ const app = express();
 const port = 3000;
 app.use(cors())
 
-// Middlewares
 app.use(bodyParser.json());
 app.use('/auth', authRoutes);
 
-// JSON Server routes
 const router = jsonServer.router('./db.json');
 app.use('/api', authenticate, router);
 
