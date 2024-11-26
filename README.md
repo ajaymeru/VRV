@@ -1,22 +1,32 @@
 # Admin User Management API
 
-This is an Express-based API integrated with JSON Server for managing user authentication, statistics, and user data in an admin-based system.
+This project includes a backend API hosted on [Render](https://vrv-vzqr.onrender.com) and a frontend hosted on [Vercel](https://vrv-ajay.vercel.app/login). The backend provides authentication, user management, and statistics functionalities for admins.
 
 ## Features
 
-- **User Authentication:**
-  - Admin user signup (`/auth/signup`): Create an admin user with email and password.
-  - Admin user login (`/auth/login`): Authenticate admin user and get a JWT token.
-  - JWT-based authentication for protected routes.
+- **Admin Authentication:**
+  - **Signup:** Admins can create an account with email, password, and role (admin).
+  - **Login:** Admins can log in and receive a JWT token for authentication.
+  - JWT token used for secured routes.
 
 - **User Management:**
-  - **Add User** (`/auth/add-user`): Admin can add new users with details such as name, email, phone, age, etc.
-  - **User Statistics** (`/auth/user-statistics`): Admin can view statistics about the total number of users, active/inactive users, and users registered today.
+  - **Add User:** Admin can add new users.
+  - **Edit User:** Admin can modify user details (e.g., name, email, role, status).
+  - **Delete User:** Admin can remove users from the system.
+  - **View Users:** Admins can view a list of all users or a single user's details.
 
-- **Roles & Permissions:**
-  - Admin role is required to access user management and statistics routes.
+- **User Statistics:**
+  - **Total Users:** Displays the total number of users.
+  - **Users Registered Today:** Counts users who registered today.
+  - **Active Users:** Counts users with an "active" status.
+  - **Inactive Users:** Counts users with an "inactive" status.
 
-## Installation
+## Deployment
+
+- **Backend:** [Deployed on Render](https://vrv-vzqr.onrender.com)
+- **Frontend:** [Deployed on Vercel](https://vrv-ajay.vercel.app/login)
+
+### How to Clone and Run the Project Locally
 
 1. Clone the repository:
 
@@ -25,48 +35,47 @@ This is an Express-based API integrated with JSON Server for managing user authe
    cd <repo-name>
    ```
 
-2. Install dependencies:
+2. Run the backend API locally:
 
    ```bash
-   npm install
+   npm run dev
    ```
 
-3. Start the server:
+3. Run the frontend locally:
 
    ```bash
-   npm start
+   npm run dev
    ```
-
-   The server will start on `http://localhost:3000` by default.
 
 ## API Endpoints
 
 ### 1. `/auth/signup`
 
-**Method**: POST  
-**Description**: Create an admin user.
+**Method:** POST  
+**Description:** Create an admin user.
 
-**Request Body**:
+**Request Body:**
 ```json
 {
   "email": "admin@example.com",
-  "password": "adminpassword"
+  "password": "adminpassword",
+  "role": "admin"
 }
 ```
 
-**Response**:
+**Response:**
 ```json
 {
-  "message": "Admin user created successfully"
+  "message": "Admin account created successfully."
 }
 ```
 
 ### 2. `/auth/login`
 
-**Method**: POST  
-**Description**: Login an admin user and receive a JWT token.
+**Method:** POST  
+**Description:** Login and receive a JWT token.
 
-**Request Body**:
+**Request Body:**
 ```json
 {
   "email": "admin@example.com",
@@ -74,51 +83,34 @@ This is an Express-based API integrated with JSON Server for managing user authe
 }
 ```
 
-**Response**:
+**Response:**
 ```json
 {
+  "message": "Login Successful",
   "token": "jwt_token_here"
 }
 ```
 
-### 3. `/auth/user-statistics`
+### 3. `/auth/add-user`
 
-**Method**: GET  
-**Description**: Retrieve statistics on users (Total users, active users, users registered today, inactive users).
+**Method:** POST  
+**Description:** Admin can add a new user.
 
-**Authorization**: Requires a valid JWT token in the `Authorization` header.
+**Authorization:** Requires a valid JWT token.
 
-**Response**:
-```json
-{
-  "totalUsers": 50,
-  "usersRegisteredToday": 5,
-  "activeUsers": 40,
-  "inactiveUsers": 10
-}
-```
-
-### 4. `/auth/add-user`
-
-**Method**: POST  
-**Description**: Add a new user to the system.
-
-**Authorization**: Requires a valid JWT token in the `Authorization` header.
-
-**Request Body**:
+**Request Body:**
 ```json
 {
   "name": "John Doe",
   "email": "johndoe@example.com",
   "phone": "1234567890",
   "age": 30,
-  "status": "active",
   "role": "user",
   "permissions": ["read", "write"]
 }
 ```
 
-**Response**:
+**Response:**
 ```json
 {
   "message": "User added successfully",
@@ -135,19 +127,125 @@ This is an Express-based API integrated with JSON Server for managing user authe
 }
 ```
 
-## Middleware & Authentication
+### 4. `/auth/users`
 
-- JWT tokens are used for authenticating and authorizing access to certain routes.
-- The `authenticate` middleware ensures that the user has a valid token and that their role is `admin` for routes that require admin access.
+**Method:** GET  
+**Description:** Get a list of all users.
 
-## Database
+**Authorization:** Requires a valid JWT token.
 
-The project uses a local `db.json` file as a mock database for storing user and admin data. This file is read and written to using helper functions.
+**Response:**
+```json
+{
+  "users": [
+    {
+      "id": 1690999999999,
+      "name": "John Doe",
+      "email": "johndoe@example.com",
+      "phone": "1234567890",
+      "age": 30,
+      "status": "active",
+      "role": "user",
+      "permissions": ["read", "write"]
+    }
+  ]
+}
+```
+
+### 5. `/auth/users/:id`
+
+**Method:** GET  
+**Description:** Get details of a single user.
+
+**Authorization:** Requires a valid JWT token.
+
+**Response:**
+```json
+{
+  "user": {
+    "id": 1690999999999,
+    "name": "John Doe",
+    "email": "johndoe@example.com",
+    "phone": "1234567890",
+    "age": 30,
+    "status": "active",
+    "role": "user",
+    "permissions": ["read", "write"]
+  }
+}
+```
+
+### 6. `/auth/edituser/:id`
+
+**Method:** PUT  
+**Description:** Edit a user's details.
+
+**Authorization:** Requires a valid JWT token.
+
+**Request Body:**
+```json
+{
+  "name": "John Doe",
+  "email": "johndoe@example.com",
+  "phone": "0987654321",
+  "status": "inactive",
+  "role": "user",
+  "permissions": ["read"]
+}
+```
+
+**Response:**
+```json
+{
+  "message": "User updated successfully",
+  "user": {
+    "id": 1690999999999,
+    "name": "John Doe",
+    "email": "johndoe@example.com",
+    "phone": "0987654321",
+    "status": "inactive",
+    "role": "user",
+    "permissions": ["read"]
+  }
+}
+```
+
+### 7. `/auth/deleteuser/:id`
+
+**Method:** DELETE  
+**Description:** Delete a user.
+
+**Authorization:** Requires a valid JWT token.
+
+**Response:**
+```json
+{
+  "message": "User deleted successfully"
+}
+```
+
+### 8. `/auth/user-statistics`
+
+**Method:** GET  
+**Description:** Get user statistics.
+
+**Authorization:** Requires a valid JWT token.
+
+**Response:**
+```json
+{
+  "totalUsers": 50,
+  "usersRegisteredToday": 5,
+  "activeUsers": 40,
+  "inactiveUsers": 10
+}
+```
 
 ## Tech Stack
 
-- **Node.js** (Express.js)
+- **React.js** (Frontend)
+- **Node.js** (Backend)
 - **JSON Server** for mocking API endpoints
 - **JWT** for authentication and authorization
-
-## License
+- **Vercel** for frontend deployment
+- **Render** for backend deployment
